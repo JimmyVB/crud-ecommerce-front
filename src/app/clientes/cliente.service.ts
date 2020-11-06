@@ -124,7 +124,7 @@ export class ClienteService {
         if(this.isNoAutorizado(e)){
           return throwError(e);
         }
-        
+
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
@@ -141,6 +141,11 @@ export class ClienteService {
       reportProgress: true
     });
     
-    return this.http.request(req);
+    return this.http.request(req).pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
   }
 }
