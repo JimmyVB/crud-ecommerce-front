@@ -47,7 +47,7 @@ export class AuthService {
     params.set('username', usuario.username);
     params.set('password', usuario.password);
 
-    return this.http.post(urlEndpoint, params.toString(), {headers: httpHeaders});
+    return this.http.post<any>(urlEndpoint, params.toString(), {headers: httpHeaders});
   }
 
   guardarUsuario(accessToken: string):void{
@@ -63,11 +63,12 @@ export class AuthService {
   
   guardarToken(accessToken: string):void{
     this._token = accessToken;
-    sessionStorage.setItem('token', accessToken);
+    sessionStorage.setItem('token', accessToken); // se guarda el token en el storage
   }
 
   obtenerDatosToken(accessToken: string):any{
     if(accessToken != null ){
+      console.log("TOKENNN: " + accessToken.split(".")[1]);
       return JSON.parse(atob(accessToken.split(".")[1]));
     }
     return null;
