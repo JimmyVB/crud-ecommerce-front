@@ -29,6 +29,10 @@ export class ClienteService {
   private isNoAutorizado(e): boolean {
     //401 = No autorizado y 403 = Prohibido
     if(e.status == 401){
+
+      if(this.authService.isAuthenticated()){
+        this.authService.logout();
+      }
       this.router.navigate(['/login']);
       return true;
     }
