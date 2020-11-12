@@ -28,7 +28,7 @@ export class AuthService {
     if(this._token != null){
       return this._token;
     } else if(this._token == null && sessionStorage.getItem('token') != null){
-      this._token = sessionStorage.getItem('usuario');
+      this._token = sessionStorage.getItem('token');
       return this._token;
     }
     return null;
@@ -54,7 +54,7 @@ export class AuthService {
     let payload = this.obtenerDatosToken(accessToken);
     this._usuario = new Usuario();
     this._usuario.nombre = payload.nombre;
-    this._usuario.apellido = payload.apellido
+    this._usuario.apellido = payload.apellido;
     this._usuario.email = payload.email;
     this._usuario.username = payload.user_name;
     this._usuario.roles = payload.authorities;
