@@ -12,13 +12,13 @@ export class DetalleFacturaComponent implements OnInit {
   factura: Factura;
   titulo: string = 'Factura';
 
-  constructor(private facturasServices: FacturaService,
+  constructor(private facturaServices: FacturaService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
-      this.facturasServices.getFactura(id).subscribe(factura => this.factura = factura); 
+      this.facturaServices.getFactura(id).subscribe(factura => this.factura = factura); 
     })
   }
 
