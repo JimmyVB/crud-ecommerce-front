@@ -15,19 +15,19 @@
       <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
           <thead>
             <tr>
-                <th>#</th>
+                <th *ngIf="authService.hasRole('ROLE_USER')">#</th>
                 <th>nombre</th>
                 <th>apellido</th>
                 <th>email</th>
                 <th>fecha</th>
-                <th>crear factura</th>
+                <th *ngIf="authService.hasRole('ROLE_ADMIN')">crear factura</th>
                 <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
                 <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let cliente of clientes">
-                <td>
+                <td *ngIf="authService.hasRole('ROLE_USER')">
                   <img (click)="abrirModal(cliente)" *ngIf="cliente?.foto"
                   src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded"
                   style="width: 64px; cursor: pointer;">
@@ -40,7 +40,7 @@
                 <td>{{ cliente.apellido | uppercase}}</td>
                 <td>{{ cliente.email }}</td>
                 <td>{{ cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
-                <td><button type="button" class="btn btn-success btn-sm" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button></td>
+                <td *ngIf="authService.hasRole('ROLE_ADMIN')"><button type="button" class="btn btn-success btn-sm" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button></td>
                 <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                   <button type="button" name="editar" [routerLink]="[ '/clientes/form', cliente.id]" 
                     class="btn btn-primary btn-sm">Editar</button>
