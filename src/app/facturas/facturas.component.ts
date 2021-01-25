@@ -113,11 +113,18 @@ export class FacturasComponent implements OnInit {
     id !== item.producto.id);
   }
 
-  create(): void{
+  create(facturaForm): void{
     console.log(this.factura);
-    this.facturaService.create(this.factura).subscribe(factura => {
-      Swal.fire(this.titulo, `Factura ${factura.descripcion} creada con exito!`, 'success');
-      this.router.navigate(['/clientes']);
-    });
+
+    if(this.factura.items.length == 0){
+      this.autocompleteControl.setErrors({'invalid':true});
+    }
+
+    if(facturaForm.form.valid && this.factura.items.length > 0){
+      this.facturaService.create(this.factura).subscribe(factura => {
+        Swal.fire(this.titulo, `Factura ${factura.descripcion} creada con exito!`, 'success');
+        this.router.navigate(['/clientes']);
+      });
+    }
   }
 }
