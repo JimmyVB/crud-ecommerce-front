@@ -23,9 +23,8 @@ export class ClienteService {
 
     return this.http.get<Cliente[]>(this.urlEndPoint + '/page/' + page).pipe(
       tap( (response: any) => {
-        console.log('ClienteService: Tap 1');
         (response.content as Cliente[]).forEach(cliente => {
-          console.log(cliente.nombre);
+          // console.log(cliente.nombre);
         }
         )
       }),
@@ -39,9 +38,9 @@ export class ClienteService {
         return response;
       }),
       tap(response => {
-        console.log('ClienteService: Tap 2');
+        // console.log('ClienteService: Tap 2');
         (response.content as Cliente[]).forEach(cliente => {
-          console.log(cliente.nombre);
+          // console.log(cliente.nombre);
         }
         )
       })

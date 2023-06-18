@@ -19,6 +19,7 @@ export class DetalleComponent implements OnInit {
   titulo: string = "Detalle del cliente";
   fotoSeleccionada: File;
   progreso: number=0 ;
+  sumaTotal: number;
 
   //inyectamos en el constructor
   constructor(private clienteService: ClienteService,
@@ -27,6 +28,7 @@ export class DetalleComponent implements OnInit {
     public modalService: ModalService) { }
 
   ngOnInit(): void {
+    this.sumaTotal = this.cliente.facturas.reduce((total, factura) => total + factura.items[0].importe, 0);
   }
 
   seleccionarFoto(event){
@@ -84,8 +86,11 @@ export class DetalleComponent implements OnInit {
               `Factura ${factura.descripcion} eliminado con exito.`,
               'success'
             )
+
+            this.sumaTotal = this.cliente.facturas.reduce((total, factura) => total + factura.items[0].importe, 0)
           }
         );
+
       }
     })
 

@@ -9,6 +9,7 @@ export class Cliente {
     email: string;
     foto: string;
     region: Region;
-
+    ruc: string;
+    usuarioId: number;
     facturas: Array<Factura> = [];
 }

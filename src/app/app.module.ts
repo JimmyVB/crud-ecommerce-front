@@ -30,12 +30,17 @@ import { FacturasComponent } from './facturas/facturas.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ProductoComponent } from './directiva/producto/producto.component';
+import { PaginadorProductoComponent } from './directiva/paginador-producto/paginador-producto.component';
 
 registerLocaleData(localeEs, 'es');
 
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
-  {path: 'directivas', component: DirectivaComponent},
+  {path: 'productos', component: ProductoComponent},
+  {path: 'productos/page/:page', component: ProductoComponent},
+  {path: 'productos/form', component: DirectivaComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'productos/form/:id', component: DirectivaComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientes/page/:page', component: ClientesComponent},
   {path: 'clientes/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
@@ -57,7 +62,9 @@ const routes: Routes = [
     DetalleComponent,
     LoginComponent,
     DetalleFacturaComponent,
-    FacturasComponent
+    FacturasComponent,
+    ProductoComponent,
+    PaginadorProductoComponent
   ],
   imports: [
     BrowserModule,

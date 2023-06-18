@@ -8,7 +8,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="overflow-y: auto; max-height: 550px;">
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
@@ -18,7 +18,7 @@
                             <li class="list-group-item">{{cliente.apellido}}</li>
                             <li class="list-group-item">{{cliente.email}}</li>
                             <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
-                            <li class="list-group-item">{{cliente.region.nombre}}</li>
+                            <li class="list-group-item">{{cliente.ruc}}</li>
                         </ul>
                         <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="input-group mb-3">
                             <div class="custom-file">
@@ -40,9 +40,9 @@
                         <img *ngIf="cliente?.foto"src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
                     </div>
                 </div>
-                <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                <!-- <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
                   <button type="button" class="btn btn-success btn-sm" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button>
-                </div>
+                </div> -->
 
                 <div class="row">
 
@@ -53,11 +53,11 @@
                   <table class="table table-bordered table-striped my-4" *ngIf="cliente.facturas.length > 0">
                     <thead>
                       <tr>
-                        <th>folio</th>
-                        <th>descripcion</th>
-                        <th>fecha</th>
-                        <th>total</th>
-                        <th>detalle</th>
+                        <th>Folio</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Detalle</th>
                         <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
                       </tr>
                     </thead>
@@ -68,15 +68,18 @@
                         <td>{{factura.createAt}}</td>
                         <td>{{factura.total}}</td>
                         <td><button class="btn btn-primary btn-sm" type="button"
-                            [routerLink]="[ '/facturas', factura.id ]">ver</button></td>
+                            [routerLink]="[ '/facturas', factura.id ]">Ver</button></td>
                         <td *ngIf="authService.hasRole('ROLE_ADMIN')">
-                          <button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">eliminar</button> 
-                        </td>   
+                          <button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">Eliminar</button> 
+                        </td>
                       </tr>
                     </tbody>
 
                   </table>
                 </div>
+                <h5 class="float-right" style="font-size: 20px; margin-top: -15px;">
+                  Gran Total: <span class="badge badge-secondary">{{sumaTotal}}</span> 
+               </h5>
             </div>
         </div>
         <div class="modal-footer">

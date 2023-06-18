@@ -1,10 +1,56 @@
-<button type="button" (click)="setHabilitar()" 
-    class="btn btn-primary my-3">{{habilitar == true ? 'Ocultar' : 'Mostrar'}}</button>
-<div class="card">
-    <div class="card-header">
-         Listado de cursos
+
+<div class="card bg-dark text-white">
+    <div class="card-header">Productos</div>
+    <div class="card-body">
+        <form #productForm="ngForm">
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" #nombre="ngModel">
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            Nombre es requerido
+                        </div>
+                        <div *ngIf="nombre.errors.minlength">
+                            Nombre debe tener al menos 4 caracteres
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="precio" class="col-form-label col-sm-2">Precio</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="producto.precio" name="precio" #precio="ngModel">
+                    <div class="alert alert-danger" *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+                        <div *ngIf="precio.errors.required">
+                            Precio es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="stock" class="col-form-label col-sm-2">Stock</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="producto.stock" name="stock" #stock="ngModel">
+                    <div class="alert alert-danger" *ngIf="stock.invalid && (stock.dirty || stock.touched)">
+                        <div *ngIf="stock.errors.required">
+                            Stock es requerido
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!producto.id else elseBlock" [disabled]="!productForm.form.valid">Crear</button>
+                    <ng-template #elseBlock>
+                        <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!productForm.form.valid">Editar</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
     </div>
-    <ul class="list-group" *ngIf="habilitar == true">
-        <li class="list-group-item" *ngFor="let curso of listaCurso">{{ curso }}</li>
-    </ul>
 </div>

@@ -33,9 +33,8 @@ export class ClientesComponent implements OnInit {
       
       this.clienteService.getClientes(page).pipe(
         tap(response => {
-          console.log('ClientesComponent: Tap 3');
           (response.content as Cliente[]).forEach(cliente => {
-            console.log(cliente.nombre);
+            // console.log(cliente.nombre);
           });
         })
       ).subscribe(response => {
@@ -81,6 +80,7 @@ export class ClientesComponent implements OnInit {
 
   abrirModal(cliente: Cliente){
     this.clienteSeleccionado = cliente;
+    console.log("cliente: ", cliente);
     this.modalService.abrirModal();
   }
 }

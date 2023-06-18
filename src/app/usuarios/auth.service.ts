@@ -58,6 +58,7 @@ export class AuthService {
     this._usuario.email = payload.email;
     this._usuario.username = payload.user_name;
     this._usuario.roles = payload.authorities;
+    this._usuario.id = payload.id;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));//Convierte un objeto en string
   }
   
@@ -68,7 +69,6 @@ export class AuthService {
 
   obtenerDatosToken(accessToken: string):any{
     if(accessToken != null ){
-      console.log("TOKENNN: " + accessToken.split(".")[1]);
       return JSON.parse(atob(accessToken.split(".")[1]));
     }
     return null;

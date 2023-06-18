@@ -35,6 +35,10 @@ export class FormComponent implements OnInit {
   }
 
   create(): void{
+    const usuario = sessionStorage.getItem('usuario');
+    const newUsuario = JSON.parse(usuario);
+    this.cliente.usuarioId = newUsuario.id;
+    
     this.clienteService.create(this.cliente)
     .subscribe( cliente => {
         this.router.navigate(['/clientes'])
